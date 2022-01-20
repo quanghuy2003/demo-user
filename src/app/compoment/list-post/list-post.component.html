@@ -1,0 +1,17 @@
+<table class="table">
+  <thead class="table-dark">
+  <tr>
+    <th>content</th>
+    <th>time</th>
+    <th>category</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let p of posts">
+    <th>{{p.content}}</th>
+    <th>{{p.time}}</th>
+    <th>{{p.mode?.name}}</th>
+  </tr>
+  </tbody>
+</table>
+<a href="http://localhost:4200/add">add</a>
