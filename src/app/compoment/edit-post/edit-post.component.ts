@@ -4,7 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {PostService} from "../../services/post.service";
 import {ModelService} from "../../services/model.service";
-import {Model} from "../../model/model";
+import {Mode} from "../../model/mode";
 
 @Component({
   selector: 'app-edit-post',
@@ -12,26 +12,17 @@ import {Model} from "../../model/model";
   styleUrls: ['./edit-post.component.css']
 })
 export class EditPostComponent implements OnInit {
-  post: Post = {
-    id: '',
-    content: '',
-    time: '',
-    title: '',
-    mode: {
-      id: '',
-      name: ''
-    }
-  };
-  models: Model[] = [
+  // @ts-ignore
+  post: Post;
+  models: Mode[] = [
     {}
   ];
-  postForm: FormGroup = this.fb.group({
-    content: new FormControl('', Validators.required),
-    time: new FormControl('', Validators.required),
-    title: new FormControl('', Validators.required),
-    model: {
-      name: new FormControl('', Validators.required)
-    }
+
+  postForm = new FormGroup( {
+    content: new FormControl(''),
+    time: new FormControl(''),
+    title: new FormControl(''),
+    modeId: new FormControl('')
   })
 
   constructor(private postService: PostService,
@@ -52,8 +43,11 @@ export class EditPostComponent implements OnInit {
       const id = parammap.get('id');
       console.log(id);
       this.postService.findById(id).subscribe(result => {
-          this.postForm = new FormGroup({
-            model: new  FormControl(result.mode?.id)
+          this.postForm = new FormGroup( {
+            content: new FormControl(result.content),
+            time: new FormControl(result.time),
+            title: new FormControl(result.title),
+            modeId: new FormControl(result.mode?.id)
           })
           this.post = result;
           console.log(result)
@@ -62,14 +56,6 @@ export class EditPostComponent implements OnInit {
           console.log(error)
         })
     },)
-    this.post = {
-      content: '',
-      time: '',
-      title: '',
-      mode: {
-        id:''
-      },
-    }
   }
 
   updatePostProfile() {
@@ -78,13 +64,13 @@ export class EditPostComponent implements OnInit {
       time: this.postForm.value.time,
       title: this.postForm.value.title,
       mode:{
-        id: this.postForm.value.
+        id: this.postForm.value.modeId
       }
     }
     console.log(post);
     // @ts-ignore
     this.postService.updatePost(this.post.id, post).subscribe(() => {
-      alert("thành công")
+      alert("Sửa thành công!")
     })
   }
 

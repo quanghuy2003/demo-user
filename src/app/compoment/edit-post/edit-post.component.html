@@ -4,36 +4,29 @@
   </div>
   <div class="form-group">
     <input type="text" class="form-control" formControlName="content" id="exampleInput Content"
-           placeholder="name" value="{{post?.content}}">
+           placeholder="name">
   </div>
   <div class="text-left">
     <label>time</label>
   </div>
   <div class="form-group">
     <input type="datetime-local" class="form-control" formControlName="time" id="exampleInput Time"
-           placeholder="name" value="{{post?.time}}">
+           placeholder="name">
   </div>
   <div class="text-left">
     <label>title</label>
   </div>
   <div class="form-group">
     <input type="text" class="form-control" formControlName="title" id="exampleInput Title"
-           placeholder="name" value="{{post?.title}}">
+           placeholder="name">
   </div>
-
-
-
   <tr>
     <td> </td>
     <td>
-      <select  formControlName="model">
-        <option [value]="post?.mode?.id">{{post?.mode?.name}}</option>
-        <option *ngFor="let title of models"
-                [value]="title.id"
-        >
-          {{title.name}}
-        </option>
-
+      <select  formControlName="modeId">
+<!--        <option [value]="post?.mode?.id">{{post?.mode?.name}}</option>-->
+        <option *ngFor="let title of models" [value]="title.id">
+          {{title.name}}</option>
       </select></td>
   </tr>
 
